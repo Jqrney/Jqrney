@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <title>Summa ❤️</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Dancing+Script:wght@700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
 
 <style>
 
@@ -249,16 +249,35 @@ h1{
   left:50%;
   top:50%;
   transform:translate(-50%,-50%);
-  font-size:70px;
+  font-size:64px;
   text-align:center;
-  max-width:80%;
-  animation:pulse 1.5s infinite;
+  max-width:85%;
+
+  font-family:'Playfair Display', serif;
+
+  background:rgba(255,255,255,0.75);
+  padding:40px 50px;
+  border-radius:25px;
+
+  box-shadow:
+    0 0 30px rgba(255,105,135,0.6),
+    0 0 60px rgba(255,180,200,0.5);
+
+  backdrop-filter:blur(8px);
+
+  opacity:0;
+  animation:fadeCenter 1.2s ease forwards;
 }
 
-@keyframes pulse{
-  0%{transform:translate(-50%,-50%) scale(1);}
-  50%{transform:translate(-50%,-50%) scale(1.08);}
-  100%{transform:translate(-50%,-50%) scale(1);}
+@keyframes fadeCenter{
+  from{
+    opacity:0;
+    transform:translate(-50%,-50%) scale(0.9);
+  }
+  to{
+    opacity:1;
+    transform:translate(-50%,-50%) scale(1);
+  }
 }
 
 </style>
@@ -353,7 +372,7 @@ const lyrics = [
 
   [10.7,14.9,"Cause I don't wanna\nbe in love with another","side"],
 
-  [15,20,"ANOTHER\nLIFEE ❤️✨","center"],
+  [15,20,"EVEN IN\nANOTHER LIFEE ❤️✨","center"],
 
   [20.5,24.9,"Can someone tell me\nit's alright to be covered","side"],
   [25,29,"Underneath the covers?\nBut I","side"],
@@ -366,7 +385,7 @@ let index=-1;
 const left=document.getElementById("left");
 const right=document.getElementById("right");
 
-/* Lyrics engine */
+/* Lyrics sync */
 
 function sync(){
 
@@ -418,7 +437,7 @@ function sync(){
   requestAnimationFrame(sync);
 }
 
-/* Overlay start */
+/* Start */
 
 function start(){
 
