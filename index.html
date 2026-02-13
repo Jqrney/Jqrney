@@ -5,23 +5,14 @@
 <title>Summa ❤️ Premium</title>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
 <style>
-/* --- Reset --- */
 *{margin:0;padding:0;box-sizing:border-box;font-family:"Poppins",sans-serif;}
 body{background:#fff0f3;min-height:100vh;overflow-x:hidden;text-align:center;color:#b03045;position:relative;scroll-behavior:smooth;}
-
-/* --- Overlay --- */
 #overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:linear-gradient(135deg,#ff9db0,#fff0f3);display:flex;justify-content:center;align-items:center;z-index:9999;flex-direction:column;}
 #overlay button{padding:20px 40px;font-size:24px;border:none;border-radius:25px;background:#ff6b81;color:white;cursor:pointer;box-shadow:0 10px 20px rgba(0,0,0,0.2);transition:0.3s;}
 #overlay button:hover{background:#ff4d6d;transform:scale(1.05);}
-
-/* --- Floating Hearts --- */
 .bg-heart{position:fixed;font-size:20px;opacity:0.2;animation:floatUp linear infinite;pointer-events:none;}
 @keyframes floatUp{from{transform:translateY(100vh);}to{transform:translateY(-120vh);}}
-
-/* --- Card --- */
 .card{max-width:900px;margin:50px auto;background:white;border-radius:25px;padding:40px;box-shadow:0 25px 60px rgba(0,0,0,0.25);position:relative;overflow:hidden;opacity:0;transform:translateY(80px);transition:all 1s ease-out;}
-
-/* --- Featured / Gallery --- */
 .featured{width:100%;height:400px;margin:50px 0;border-radius:25px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,0.25);cursor:pointer;opacity:0;transform:translateX(100px);transition:all 1s ease-out;}
 .featured img{width:100%;height:100%;object-fit:cover;transition:0.6s;}
 .featured:hover img{transform:scale(1.1);}
@@ -29,258 +20,69 @@ body{background:#fff0f3;min-height:100vh;overflow-x:hidden;text-align:center;col
 .pic{height:250px;border-radius:20px;overflow:hidden;box-shadow:0 15px 35px rgba(0,0,0,0.25);transition:0.6s;cursor:pointer;opacity:0;transform:translateY(50px);}
 .pic img{width:100%;height:100%;object-fit:cover;transition:0.6s;}
 .pic:hover{transform:scale(1.05) rotate(-1deg);}
-
-/* --- Scroll visible class --- */
 .show{opacity:1;transform:translate(0,0);}
-
-/* --- Titles --- */
 h1{font-size:3rem;margin-bottom:10px;animation:float 3s infinite;text-shadow:0 0 15px #ff9db0;}
 h2{font-weight:400;margin-bottom:30px;}
 .message{font-size:1.1rem;line-height:1.8;margin:30px 0;}
-
-/* --- Buttons --- */
 .btn{background:#ff6b81;color:white;border:none;padding:14px 35px;border-radius:30px;font-size:18px;cursor:pointer;transition:0.3s;box-shadow:0 8px 20px rgba(0,0,0,0.2);}
 .btn:hover{background:#ff4d6d;transform:scale(1.08);}
-
-/* --- Lightbox --- */
 .lightbox{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.85);display:none;justify-content:center;align-items:center;z-index:1000;}
 .lightbox img{max-width:90%;max-height:90%;border-radius:25px;box-shadow:0 20px 60px rgba(0,0,0,0.3);}
-
-/* --- Animations --- */
 @keyframes float{0%{transform:translateY(0);}50%{transform:translateY(-8px);}100%{transform:translateY(0);}}
-@keyframes heartMove{from{opacity:1;}to{opacity:0;transform:translateY(-80px) scale(0.3);}}
-@keyframes modalShow{from{opacity:0;transform:translateY(50px);}to{opacity:1;transform:translateY(0);}}
-
-/* --- Cursor Hearts --- */
 .heart{position:fixed;font-size:18px;color:#ff4d6d;animation:heartMove 1.5s linear forwards;pointer-events:none;}
-
-/* --- Lyrics --- */
+@keyframes heartMove{from{opacity:1;}to{opacity:0;transform:translateY(-80px) scale(0.3);}}
 .lyric{position:fixed;font-size:32px;font-family:'Dancing Script', cursive;color:#b03045;font-weight:700;opacity:0;transition:opacity 0.3s;pointer-events:none;max-width:28%;white-space:pre-wrap;word-wrap:break-word;text-shadow:2px 2px 8px #ffc0cb;}
 .lyric.left{left:10%;top:50%;transform:translateY(-50%);}
 .lyric.right{right:10%;top:50%;transform:translateY(-50%);}
-
-/* --- Love Modal --- */
-#loveModal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.85);z-index:10000;justify-content:center;align-items:flex-start;overflow:auto;}
-#loveModal .modalContent{background:white;border-radius:25px;padding:40px;margin:50px auto;max-width:800px;width:90%;box-shadow:0 25px 60px rgba(0,0,0,0.25);animation:modalShow 0.8s ease-out;}
-#loveModal .love-card{margin-bottom:30px;opacity:0;transform:translateY(50px);transition:all 0.8s ease-out;}
-#loveModal .love-card img{width:100%;border-radius:25px;margin-bottom:15px;box-shadow:0 20px 60px rgba(0,0,0,0.25);cursor:pointer;}
-#loveModal .love-card textarea{width:100%;border-radius:20px;padding:15px;border:2px solid #ff6b81;font-size:16px;resize:none;}
-#lovePreviewArea .preview-card{margin-bottom:30px;border-radius:25px;background:white;padding:20px;box-shadow:0 25px 60px rgba(0,0,0,0.25);opacity:0;transform:translateY(50px);transition:all 0.8s ease-out;}
-#lovePreviewArea .preview-card img{width:100%;border-radius:25px;margin-bottom:15px;cursor:pointer;}
-#lovePreviewArea .preview-card p{color:#b03045;font-family:'Poppins',sans-serif;font-size:16px;}
 </style>
 </head>
 <body>
 
-<!-- Overlay -->
 <div id="overlay">
   <h1>💖 Welcome 💖</h1>
   <button onclick="startExperience()">Wanna open? ❤️</button>
 </div>
 
-<!-- Music -->
 <audio id="music" loop>
   <source src="music.mp3" type="audio/mpeg">
 </audio>
 
-<!-- Main Card -->
 <div class="card">
 <h1>💖 Happy Valentine’s Day 💖</h1>
 <h2>Summa 💕</h2>
 <div class="message">
-<p>Summa, you’re such an amazing person. I love you and you’re everything in my life.</p>
-<p>I’m so grateful to have you in 2026. I hope we’ll be together this whole year and share so many memories.</p>
-<p>I really, really, really love you. I love your vibes and everything about you.</p>
-<p style="font-weight:600;">YOU ARE MY E-VALENTINE ❤️</p>
-<p style="margin-top:20px;">— Your Winta 💘</p>
+<p>Summa, you’re amazing. I love you and you’re everything in my life.</p>
 </div>
 
-<div class="featured" onclick="openLightbox('photo4.png')">
-  <img src="photo4.png">
-</div>
-
+<div class="featured" onclick="openLightbox('photo4.png')"><img src="photo4.png"></div>
 <div class="gallery">
   <div class="pic" onclick="openLightbox('photo1.png')"><img src="photo1.png"></div>
   <div class="pic" onclick="openLightbox('photo2.png')"><img src="photo2.png"></div>
   <div class="pic" onclick="openLightbox('photo3.png')"><img src="photo3.png"></div>
 </div>
 
-<button class="btn" onclick="showLove()">Click Me 😘</button>
+<!-- NEW: Navigate to page2.html -->
+<button class="btn" onclick="window.location.href='page2.html'">Click Me 😘</button>
 </div>
 
-<!-- Lightbox -->
-<div class="lightbox" id="lightbox" onclick="closeLightbox()">
-  <img id="lightboxImg">
-</div>
-
-<!-- Lyrics -->
+<div class="lightbox" id="lightbox" onclick="closeLightbox()"><img id="lightboxImg"></div>
 <div class="lyric left" id="lyric-left"></div>
 <div class="lyric right" id="lyric-right"></div>
 
-<!-- Love Modal -->
-<div id="loveModal">
-  <div class="modalContent">
-    <h2 style="text-align:center;color:#b03045;font-family:'Dancing Script',cursive;margin-bottom:30px;">💖 Your Love Cards 💖</h2>
-
-    <div class="love-card">
-      <img src="pic1.png" onclick="lightboxOpen(this.src)">
-      <textarea placeholder="Write something about this picture..."></textarea>
-    </div>
-    <div class="love-card">
-      <img src="pic2.png" onclick="lightboxOpen(this.src)">
-      <textarea placeholder="Write something about this picture..."></textarea>
-    </div>
-    <div class="love-card">
-      <img src="pic3.png" onclick="lightboxOpen(this.src)">
-      <textarea placeholder="Write something about this picture..."></textarea>
-    </div>
-
-    <div style="text-align:center;margin-top:20px;">
-      <button onclick="saveLoveModal()" class="btn" style="margin-right:10px;">Save All 💌</button>
-      <button onclick="closeLoveModal()" class="btn" style="background:#ccc;color:#b03045;">Close ❌</button>
-    </div>
-
-    <div id="lovePreviewArea"></div>
-  </div>
-</div>
-
 <script>
-let music = document.getElementById("music");
-let playing = false;
-
-/* Floating Background Hearts */
-setInterval(()=>{
-  let h=document.createElement("div");
-  h.className="bg-heart";
-  h.innerHTML="❤️";
-  h.style.left=Math.random()*100+"vw";
-  h.style.animationDuration=5+Math.random()*5+"s";
-  document.body.appendChild(h);
-  setTimeout(()=>h.remove(),10000);
-},600);
-
-/* Cursor Hearts */
-let lastHeart=0;
-document.addEventListener("mousemove",e=>{
-  let now=Date.now();
-  if(now-lastHeart<150) return;
-  lastHeart=now;
-  let h=document.createElement("div");
-  h.className="heart";
-  h.innerHTML="❤️";
-  h.style.left=e.clientX+"px";
-  h.style.top=e.clientY+"px";
-  document.body.appendChild(h);
-  setTimeout(()=>h.remove(),1500);
-});
-
-/* Lightbox */
-function openLightbox(src){
-  document.getElementById("lightboxImg").src=src;
-  document.getElementById("lightbox").style.display="flex";
-}
+let music=document.getElementById("music"),playing=false;
+setInterval(()=>{let h=document.createElement("div");h.className="bg-heart";h.innerHTML="❤️";h.style.left=Math.random()*100+"vw";h.style.animationDuration=5+Math.random()*5+"s";document.body.appendChild(h);setTimeout(()=>h.remove(),10000);},600);
+let lastHeart=0;document.addEventListener("mousemove",e=>{let now=Date.now();if(now-lastHeart<150)return;lastHeart=now;let h=document.createElement("div");h.className="heart";h.innerHTML="❤️";h.style.left=e.clientX+"px";h.style.top=e.clientY+"px";document.body.appendChild(h);setTimeout(()=>h.remove(),1500);});
+function openLightbox(src){document.getElementById("lightboxImg").src=src;document.getElementById("lightbox").style.display="flex";}
 function closeLightbox(){document.getElementById("lightbox").style.display="none";}
-function lightboxOpen(src){openLightbox(src);}
-
-/* Overlay */
-function startExperience(){
-  document.getElementById("overlay").style.display="none";
-  document.querySelector(".card").style.display="block";
-  if(!playing){
-    music.play().catch(e=>{});
-    playing=true;
-  }
-}
-
-/* Scroll-triggered animation */
-const scrollElements = document.querySelectorAll(".card, .featured, .pic");
-const observer = new IntersectionObserver(entries => {
-  entries.forEach(entry => {
-    if(entry.isIntersecting){
-      entry.target.classList.add("show");
-      observer.unobserve(entry.target);
-    }
-  });
-},{threshold:0.2});
-scrollElements.forEach(el => observer.observe(el));
-
-/* Lyrics sync */
-const lyrics = [
-  [1.0, 3.0, "I don't wanna get lost"],
-  [3.5, 6.0, "inside the color"],
-  [6.3, 9.0, "under my tongue"],
-  [10.7, 14.9, "Cause I don't wanna\nbe in love with another"],
-  [15.0, 20.0, "even in another life"],
-  [20.5, 24.9, "Can someone tell me\nit's alright to be covered"],
-  [25.0, 29.0, "Underneath the covers?\nBut I"],
-  [29.1, 33.5, "No, I don't need to\nsleep anymore"]
-];
+function startExperience(){document.getElementById("overlay").style.display="none";document.querySelector(".card").style.display="block";if(!playing){music.play().catch(e=>{});playing=true;}}
+const scrollElements=document.querySelectorAll(".card,.featured,.pic");const observer=new IntersectionObserver(entries=>{entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add("show");observer.unobserve(entry.target);}}},{threshold:0.2});scrollElements.forEach(el=>observer.observe(el));
+const lyrics=[[1.0,3.0,"I don't wanna get lost"],[3.5,6.0,"inside the color"],[6.3,9.0,"under my tongue"],[10.7,14.9,"Cause I don't wanna\nbe in love with another"],[15.0,20.0,"even in another life"],[20.5,24.9,"Can someone tell me\nit's alright to be covered"],[25.0,29.0,"Underneath the covers?\nBut I"],[29.1,33.5,"No, I don't need to\nsleep anymore"]];
 let lyricIndex=0;
-const leftEl = document.getElementById("lyric-left");
-const rightEl = document.getElementById("lyric-right");
-function updateLyrics(){
-  const currentTime = music.currentTime;
-  let found = false;
-  lyrics.forEach((line,i)=>{
-    if(currentTime>=line[0] && currentTime<=line[1]){
-      if(i!==lyricIndex){
-        lyricIndex=i;
-        const el = i%2===0 ? leftEl : rightEl;
-        const other = i%2===0 ? rightEl : leftEl;
-        el.innerText=line[2];
-        el.style.opacity=1;
-        other.style.opacity=0;
-      }
-      found=true;
-    }
-  });
-  if(!found){ leftEl.style.opacity=0; rightEl.style.opacity=0; }
-  requestAnimationFrame(updateLyrics);
-}
-music.addEventListener('ended',()=>{
-  music.currentTime=0;
-  lyricIndex=0;
-  music.play().catch(e=>{});
-});
+const leftEl=document.getElementById("lyric-left"),rightEl=document.getElementById("lyric-right");
+function updateLyrics(){const t=music.currentTime;let found=false;lyrics.forEach((line,i)=>{if(t>=line[0]&&t<=line[1]){if(i!==lyricIndex){lyricIndex=i;const el=i%2===0?leftEl:rightEl,const other=i%2===0?rightEl:leftEl;el.innerText=line[2];el.style.opacity=1;other.style.opacity=0;}found=true;}});if(!found){leftEl.style.opacity=0;rightEl.style.opacity=0;}requestAnimationFrame(updateLyrics);}
+music.addEventListener('ended',()=>{music.currentTime=0;lyricIndex=0;music.play().catch(e=>{});});
 requestAnimationFrame(updateLyrics);
-
-/* --- Love Modal --- */
-function showLove(){
-  document.getElementById("loveModal").style.display="flex";
-  const cards = document.querySelectorAll("#loveModal .love-card");
-  cards.forEach((c,i)=>{
-    setTimeout(()=>{
-      c.style.opacity="1";
-      c.style.transform="translateY(0)";
-    },i*200);
-  });
-}
-function closeLoveModal(){document.getElementById("loveModal").style.display="none";}
-function saveLoveModal(){
-  const preview = document.getElementById("lovePreviewArea");
-  preview.innerHTML="";
-  const cards = document.querySelectorAll("#loveModal .love-card");
-  cards.forEach(c=>{
-    const imgSrc=c.querySelector("img").src;
-    const text=c.querySelector("textarea").value;
-    const div=document.createElement("div");
-    div.className="preview-card";
-    const img=document.createElement("img");
-    img.src=imgSrc;
-    img.onclick=()=>lightboxOpen(imgSrc);
-    const p=document.createElement("p");
-    p.innerHTML=text.replace(/\n/g,"<br>");
-    div.appendChild(img);
-    div.appendChild(p);
-    preview.appendChild(div);
-    setTimeout(()=>{
-      div.style.opacity="1";
-      div.style.transform="translateY(0)";
-    },100);
-  });
-  alert("All love saved! 💌 Scroll down to see your preview.");
-}
 </script>
-
 </body>
 </html>
