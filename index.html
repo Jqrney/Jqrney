@@ -6,18 +6,30 @@
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:"Poppins",sans-serif;}
-body{background:#fff0f3;min-height:100vh;overflow-x:auto;text-align:center;color:#b03045;position:relative;}
+body{overflow-x:auto;text-align:center;color:#b03045;position:relative;min-height:100vh;}
+
+/* Dynamic Gradient Background */
+#bgGradient{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background: radial-gradient(circle at 50% 50%, #ff9db0, #fff0f3 80%);
+  transition: background 0.1s;
+  z-index:-1;
+}
 
 /* Overlay */
-#overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:linear-gradient(135deg,#ff9db0,#fff0f3);display:flex;justify-content:center;align-items:center;z-index:9999;flex-direction:column;}
+#overlay{position:fixed;top:0;left:0;width:100%;height:100%;display:flex;justify-content:center;align-items:center;z-index:9999;flex-direction:column;}
 
 /* Slider container */
 #sliderContainer{width:60%; margin:20px auto; position:relative;}
 #loveSlider {width:100%; height:15px; border-radius:10px; background: linear-gradient(90deg,#ff6b81 0%,#ff9db0 100%); -webkit-appearance:none; cursor:pointer;}
-#loveSlider::-webkit-slider-thumb {-webkit-appearance:none; width:30px; height:30px; background:#ff4d6d; border-radius:50%; box-shadow:0 5px 10px rgba(0,0,0,0.2);}
-#loveSlider::-moz-range-thumb {width:30px; height:30px; background:#ff4d6d; border-radius:50%; box-shadow:0 5px 10px rgba(0,0,0,0.2);}
+#loveSlider::-webkit-slider-thumb {-webkit-appearance:none; width:30px; height:30px; background:#ff4d6d; border-radius:50%; box-shadow:0 5px 15px rgba(0,0,0,0.3);}
+#loveSlider::-moz-range-thumb {width:30px; height:30px; background:#ff4d6d; border-radius:50%; box-shadow:0 5px 15px rgba(0,0,0,0.3);}
 #percentDisplay {position:absolute; top:-30px; left:50%; transform:translateX(-50%); font-size:24px; color:#b03045; font-weight:600;}
-#yesBtn{margin-top:20px; padding:15px 40px; font-size:22px; border:none; border-radius:25px; background:#ff6b81; color:white; cursor:pointer; box-shadow:0 10px 20px rgba(0,0,0,0.2); transition:0.3s; display:none;}
+#yesBtn{margin-top:20px; padding:15px 40px; font-size:22px; border:none; border-radius:25px; background:#ff6b81; color:white; cursor:pointer; box-shadow:0 10px 25px rgba(255,107,129,0.6); transition:0.3s; display:none;}
 #yesBtn:hover{background:#ff4d6d; transform:scale(1.05);}
 
 /* Floating Background Hearts */
@@ -25,10 +37,15 @@ body{background:#fff0f3;min-height:100vh;overflow-x:auto;text-align:center;color
 @keyframes floatUp{from{transform:translateY(100vh);}to{transform:translateY(-120vh);}}
 
 /* Card */
-.card{max-width:900px;margin:50px auto;background:white;border-radius:25px;padding:40px;box-shadow:0 20px 40px rgba(0,0,0,0.15);animation:fadeIn 2s ease;position:relative;overflow:hidden;display:none;}
+.card{
+  max-width:900px;margin:50px auto;background:linear-gradient(145deg, #fff0f3, #ffe0e8);
+  border-radius:30px;padding:50px;box-shadow:0 20px 40px rgba(255,77,109,0.5),0 0 60px rgba(255,192,203,0.3) inset;
+  animation:fadeIn 2s ease;position:relative;overflow:hidden;display:none;
+  border:2px solid rgba(255,77,109,0.3);
+}
 
 /* Titles */
-h1{font-size:3rem;margin-bottom:10px;animation:float 3s infinite;text-shadow:0 0 10px #ff9db0;}
+h1{font-size:3rem;margin-bottom:10px;animation:float 3s infinite;text-shadow:0 0 15px #ff9db0;}
 h2{font-weight:400;margin-bottom:30px;}
 .message{font-size:1.1rem;line-height:1.8;margin:30px 0;animation:slideUp 2s ease;}
 
@@ -63,6 +80,9 @@ h2{font-weight:400;margin-bottom:30px;}
 </style>
 </head>
 <body>
+
+<!-- Dynamic Gradient Background -->
+<div id="bgGradient"></div>
 
 <!-- Overlay -->
 <div id="overlay">
@@ -112,6 +132,14 @@ h2{font-weight:400;margin-bottom:30px;}
 <div class="lyric right" id="lyric-right"></div>
 
 <script>
+// Dynamic Background Gradient follow mouse
+const bg = document.getElementById("bgGradient");
+document.addEventListener("mousemove",(e)=>{
+  const x = e.clientX / window.innerWidth * 100;
+  const y = e.clientY / window.innerHeight * 100;
+  bg.style.background = `radial-gradient(circle at ${x}% ${y}%, #ff9db0, #fff0f3 80%)`;
+});
+
 // Music
 let music = document.getElementById("music");
 let playing = false;
@@ -167,7 +195,7 @@ function closeLightbox(){document.getElementById("lightbox").style.display="none
 // Love button popup
 function showLove(){ alert("BOOMSHAKALAKA 💥❤️"); }
 
-// Infinite slider prank (stretches only after 100%)
+// Infinite slider prank (only stretches after 100%)
 const slider = document.getElementById("loveSlider");
 const percentDisplay = document.getElementById("percentDisplay");
 const yesBtn = document.getElementById("yesBtn");
@@ -185,10 +213,9 @@ slider.addEventListener("input", () => {
       yesBtn.style.display = "inline-block";
     }
   } else {
-    // After reaching 100%, slider stretches and % increases infinitely
-    dragValue += 1; // increase by 1% per input
+    dragValue += 1;
     percentDisplay.innerText = dragValue + "%";
-    sliderWidth *= 1.05; // grow 5% per input
+    sliderWidth *= 1.05;
     slider.style.width = sliderWidth + "px";
   }
 });
