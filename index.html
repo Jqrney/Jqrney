@@ -3,7 +3,6 @@
 <head>
 <meta charset="UTF-8">
 <title>Summa ❤️ Premium</title>
-
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
 
 <style>
@@ -20,25 +19,24 @@ body{background:#fff0f3;min-height:100vh;overflow-x:hidden;text-align:center;col
 @keyframes floatUp{from{transform:translateY(100vh);}to{transform:translateY(-120vh);}}
 
 /* Card */
-.card{max-width:900px;margin:50px auto;background:white;border-radius:25px;padding:40px;box-shadow:0 20px 60px rgba(0,0,0,0.2);position:relative;overflow:hidden;opacity:0;transform:translateY(40px);transition:1s ease;}
+.card{max-width:900px;margin:50px auto;background:white;border-radius:25px;padding:40px;box-shadow:0 25px 60px rgba(0,0,0,0.25);position:relative;overflow:hidden;opacity:0;transform:translateY(80px);transition:all 1s ease-out;}
 
-/* Scroll Animation */
-.card.show{opacity:1;transform:translateY(0);}
-.featured.show,.pic.show{opacity:1;transform:translateY(0);}
+/* Featured / Gallery */
+.featured{width:100%;height:400px;margin:50px 0;border-radius:25px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,0.25);cursor:pointer;opacity:0;transform:translateX(100px);transition:all 1s ease-out;}
+.featured img{width:100%;height:100%;object-fit:cover;transition:0.6s;}
+.featured:hover img{transform:scale(1.1);}
+.gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:25px;margin:40px 0;}
+.pic{height:250px;border-radius:20px;overflow:hidden;box-shadow:0 15px 35px rgba(0,0,0,0.25);transition:0.6s;cursor:pointer;opacity:0;transform:translateY(50px);}
+.pic img{width:100%;height:100%;object-fit:cover;transition:0.6s;}
+.pic:hover{transform:scale(1.05) rotate(-1deg);}
+
+/* Scroll visible class */
+.show{opacity:1;transform:translate(0,0);}
 
 /* Titles */
 h1{font-size:3rem;margin-bottom:10px;animation:float 3s infinite;text-shadow:0 0 15px #ff9db0;}
 h2{font-weight:400;margin-bottom:30px;}
 .message{font-size:1.1rem;line-height:1.8;margin:30px 0;}
-
-/* Featured / Gallery */
-.featured{width:100%;height:400px;margin:50px 0;border-radius:25px;overflow:hidden;box-shadow:0 20px 50px rgba(0,0,0,0.2);cursor:pointer;opacity:0;transform:translateY(40px);transition:1s ease;}
-.featured img{width:100%;height:100%;object-fit:cover;transition:0.6s;}
-.featured:hover img{transform:scale(1.1);}
-.gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:25px;margin:40px 0;}
-.pic{height:250px;border-radius:20px;overflow:hidden;box-shadow:0 15px 35px rgba(0,0,0,0.2);transition:0.5s;cursor:pointer;opacity:0;transform:translateY(40px);}
-.pic img{width:100%;height:100%;object-fit:cover;transition:0.5s;}
-.pic:hover{transform:scale(1.05) rotate(-1deg);}
 
 /* Button */
 .btn{background:#ff6b81;color:white;border:none;padding:14px 35px;border-radius:30px;font-size:18px;cursor:pointer;transition:0.3s;box-shadow:0 8px 20px rgba(0,0,0,0.2);}
@@ -59,10 +57,8 @@ h2{font-weight:400;margin-bottom:30px;}
 .lyric{position:fixed;font-size:32px;font-family:'Dancing Script', cursive;color:#b03045;font-weight:700;opacity:0;transition:opacity 0.3s;pointer-events:none;max-width:28%;white-space:pre-wrap;word-wrap:break-word;text-shadow:2px 2px 8px #ffc0cb;}
 .lyric.left{left:10%;top:50%;transform:translateY(-50%);}
 .lyric.right{right:10%;top:50%;transform:translateY(-50%);}
-
 </style>
 </head>
-
 <body>
 
 <!-- Overlay -->
@@ -80,20 +76,10 @@ h2{font-weight:400;margin-bottom:30px;}
 <h1>💖 Happy Valentine’s Day 💖</h1>
 <h2>Summa 💕</h2>
 <div class="message">
-<p>
-Summa, you’re such an amazing person. I love you and you’re everything in my life.
-</p>
-<p>
-I’m so grateful to have you in 2026.
-I hope we’ll be together this whole year and share so many memories.
-</p>
-<p>
-I really, really, really love you.
-I love your vibes and everything about you.
-</p>
-<p style="font-weight:600;">
-YOU ARE MY E-VALENTINE ❤️
-</p>
+<p>Summa, you’re such an amazing person. I love you and you’re everything in my life.</p>
+<p>I’m so grateful to have you in 2026. I hope we’ll be together this whole year and share so many memories.</p>
+<p>I really, really, really love you. I love your vibes and everything about you.</p>
+<p style="font-weight:600;">YOU ARE MY E-VALENTINE ❤️</p>
 <p style="margin-top:20px;">— Your Winta 💘</p>
 </div>
 
@@ -170,14 +156,15 @@ function startExperience(){
 
 /* Scroll-triggered animation */
 const scrollElements = document.querySelectorAll(".card, .featured, .pic");
-const observer = new IntersectionObserver(entries=>{
-  entries.forEach(entry=>{
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
     if(entry.isIntersecting){
       entry.target.classList.add("show");
+      observer.unobserve(entry.target);
     }
   });
 },{threshold:0.2});
-scrollElements.forEach(el=>observer.observe(el));
+scrollElements.forEach(el => observer.observe(el));
 
 /* Lyrics sync */
 const lyrics = [
@@ -204,7 +191,7 @@ function updateLyrics(){
         lyricIndex=i;
         const el = i%2===0 ? leftEl : rightEl;
         const other = i%2===0 ? rightEl : leftEl;
-        el.innerText = line[2];
+        el.innerText=line[2];
         el.style.opacity=1;
         other.style.opacity=0;
       }
