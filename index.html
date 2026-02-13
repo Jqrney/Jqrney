@@ -6,18 +6,23 @@
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:"Poppins",sans-serif;}
-body{overflow-x:auto;text-align:center;color:#b03045;position:relative;min-height:100vh;}
+body{overflow-x:auto;text-align:center;color:#fff;position:relative;min-height:100vh;background:#000;}
 
-/* Dynamic Gradient Background */
+/* Dynamic Gradient Background with subtle movement */
 #bgGradient{
-  position:fixed;
-  top:0;
-  left:0;
-  width:100%;
-  height:100%;
-  background: radial-gradient(circle at 50% 50%, #ff9db0, #fff0f3 80%);
-  transition: background 0.1s;
-  z-index:-1;
+  position:fixed;top:0;left:0;width:100%;height:100%;z-index:-2;
+  background:radial-gradient(circle at 50% 50%, #d88fff, #ff9db0 60%, #ffd3b6 90%);
+  transition:background 0.1s;
+  overflow:hidden;
+}
+
+/* Floating warp blobs */
+.warp{
+  position:absolute;
+  border-radius:50%;
+  opacity:0.25;
+  filter:blur(50px);
+  mix-blend-mode:overlay;
 }
 
 /* Overlay */
@@ -28,7 +33,7 @@ body{overflow-x:auto;text-align:center;color:#b03045;position:relative;min-heigh
 #loveSlider {width:100%; height:15px; border-radius:10px; background: linear-gradient(90deg,#ff6b81 0%,#ff9db0 100%); -webkit-appearance:none; cursor:pointer;}
 #loveSlider::-webkit-slider-thumb {-webkit-appearance:none; width:30px; height:30px; background:#ff4d6d; border-radius:50%; box-shadow:0 5px 15px rgba(0,0,0,0.3);}
 #loveSlider::-moz-range-thumb {width:30px; height:30px; background:#ff4d6d; border-radius:50%; box-shadow:0 5px 15px rgba(0,0,0,0.3);}
-#percentDisplay {position:absolute; top:-30px; left:50%; transform:translateX(-50%); font-size:24px; color:#b03045; font-weight:600;}
+#percentDisplay {position:absolute; top:-30px; left:50%; transform:translateX(-50%); font-size:24px; font-weight:600; color:#fff;}
 #yesBtn{margin-top:20px; padding:15px 40px; font-size:22px; border:none; border-radius:25px; background:#ff6b81; color:white; cursor:pointer; box-shadow:0 10px 25px rgba(255,107,129,0.6); transition:0.3s; display:none;}
 #yesBtn:hover{background:#ff4d6d; transform:scale(1.05);}
 
@@ -36,18 +41,20 @@ body{overflow-x:auto;text-align:center;color:#b03045;position:relative;min-heigh
 .bg-heart{position:fixed;font-size:20px;opacity:0.2;animation:floatUp linear infinite;pointer-events:none;}
 @keyframes floatUp{from{transform:translateY(100vh);}to{transform:translateY(-120vh);}}
 
-/* Card */
+/* Card with frosted glass and glow */
 .card{
-  max-width:900px;margin:50px auto;background:linear-gradient(145deg, #fff0f3, #ffe0e8);
-  border-radius:30px;padding:50px;box-shadow:0 20px 40px rgba(255,77,109,0.5),0 0 60px rgba(255,192,203,0.3) inset;
+  max-width:900px;margin:50px auto;padding:50px;border-radius:30px;
+  background:rgba(255,255,255,0.15);
+  backdrop-filter:blur(20px);
+  box-shadow:0 0 60px rgba(255,192,203,0.5),0 0 20px rgba(255,107,129,0.3) inset;
   animation:fadeIn 2s ease;position:relative;overflow:hidden;display:none;
-  border:2px solid rgba(255,77,109,0.3);
+  border:2px solid rgba(255,192,203,0.25);
 }
 
 /* Titles */
-h1{font-size:3rem;margin-bottom:10px;animation:float 3s infinite;text-shadow:0 0 15px #ff9db0;}
+h1{font-size:3rem;margin-bottom:10px;text-shadow:0 0 20px #ff9db0;}
 h2{font-weight:400;margin-bottom:30px;}
-.message{font-size:1.1rem;line-height:1.8;margin:30px 0;animation:slideUp 2s ease;}
+.message{font-size:1.1rem;line-height:1.8;margin:30px 0;}
 
 /* Featured / Gallery */
 .featured{width:100%;height:230px;margin:30px 0;border-radius:18px;overflow:hidden;box-shadow:0 12px 25px rgba(0,0,0,0.15);cursor:pointer;}
@@ -68,13 +75,12 @@ h2{font-weight:400;margin-bottom:30px;}
 
 /* Animations */
 @keyframes fadeIn{from{opacity:0;transform:translateY(40px);}to{opacity:1;transform:translateY(0);}}
-@keyframes slideUp{from{opacity:0;transform:translateY(50px);}to{opacity:1;transform:translateY(0);}}
 @keyframes float{0%{transform:translateY(0);}50%{transform:translateY(-8px);}100%{transform:translateY(0);}}
 .heart{position:fixed;font-size:18px;color:#ff4d6d;animation:heartMove 1.5s linear forwards;pointer-events:none;}
 @keyframes heartMove{from{opacity:1;}to{opacity:0;transform:translateY(-80px) scale(0.3);}}
 
 /* Lyrics */
-.lyric{position:fixed;font-size:32px;font-family:'Dancing Script', cursive;color:#b03045;font-weight:700;opacity:0;transition:opacity 0.3s;pointer-events:none;max-width:28%;white-space:pre-wrap;word-wrap:break-word;text-shadow:2px 2px 8px #ffc0cb;}
+.lyric{position:fixed;font-size:32px;font-family:'Dancing Script', cursive;color:#fff;font-weight:700;opacity:0;transition:opacity 0.3s;pointer-events:none;max-width:28%;white-space:pre-wrap;word-wrap:break-word;text-shadow:2px 2px 10px #ff9db0;}
 .lyric.left{left:10%;top:50%;transform:translateY(-50%);}
 .lyric.right{right:10%;top:50%;transform:translateY(-50%);}
 </style>
@@ -83,6 +89,9 @@ h2{font-weight:400;margin-bottom:30px;}
 
 <!-- Dynamic Gradient Background -->
 <div id="bgGradient"></div>
+
+<!-- Warp blobs -->
+<div id="warps"></div>
 
 <!-- Overlay -->
 <div id="overlay">
@@ -137,8 +146,25 @@ const bg = document.getElementById("bgGradient");
 document.addEventListener("mousemove",(e)=>{
   const x = e.clientX / window.innerWidth * 100;
   const y = e.clientY / window.innerHeight * 100;
-  bg.style.background = `radial-gradient(circle at ${x}% ${y}%, #ff9db0, #fff0f3 80%)`;
+  bg.style.background = `radial-gradient(circle at ${x}% ${y}%, #d88fff, #ff9db0 60%, #ffd3b6 90%)`;
 });
+
+// Floating warp blobs behind card
+const warpsContainer = document.getElementById("warps");
+for(let i=0;i<8;i++){
+  let w = document.createElement("div");
+  w.className="warp";
+  w.style.width = w.style.height = (100+Math.random()*150)+"px";
+  w.style.background = `radial-gradient(circle, rgba(255,255,255,0.2) 0%, transparent 70%)`;
+  w.style.left = Math.random()*100+"vw";
+  w.style.top = Math.random()*100+"vh";
+  warpsContainer.appendChild(w);
+  animateWarp(w);
+}
+function animateWarp(el){
+  let x = Math.random()*100, y=Math.random()*100;
+  el.animate([{left:el.style.left, top:el.style.top},{left:x+"vw", top:y+"vh"}],{duration:5000+Math.random()*5000, iterations:Infinity, direction:'alternate', easing:'ease-in-out'});
+}
 
 // Music
 let music = document.getElementById("music");
