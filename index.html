@@ -56,6 +56,27 @@ h2{font-weight:400;margin-bottom:30px;}
 .lyric{position:fixed;font-size:32px;font-family:'Dancing Script', cursive;color:#b03045;font-weight:700;opacity:0;transition:opacity 0.3s;pointer-events:none;max-width:28%;white-space:pre-wrap;word-wrap:break-word;text-shadow:2px 2px 8px #ffc0cb;}
 .lyric.left{left:10%;top:50%;transform:translateY(-50%);}
 .lyric.right{right:10%;top:50%;transform:translateY(-50%);}
+
+/* Side gallery hover effect */
+.side-gallery .img-container img:hover{
+  transform: scale(1.08);
+  box-shadow:0 12px 25px rgba(0,0,0,0.15);
+  transition:0.4s;
+}
+
+/* Responsive for side gallery */
+@media (max-width:768px){
+  .side-gallery .side-pic{
+    flex-direction:column;
+    align-items:flex-start;
+  }
+  .side-gallery .img-container{
+    max-width:100%;
+  }
+  .side-gallery .side-pic div:last-child{
+    margin-top:15px;
+  }
+}
 </style>
 </head>
 
@@ -101,43 +122,43 @@ YOU ARE MY E-VALENTINE ❤️
   <img src="photo4.png">
 </div>
 
-<!-- Original Gallery -->
+<!-- Original top gallery -->
 <div class="gallery">
   <div class="pic" onclick="openLightbox('photo1.png')"><img src="photo1.png"></div>
   <div class="pic" onclick="openLightbox('photo2.png')"><img src="photo2.png"></div>
   <div class="pic" onclick="openLightbox('photo3.png')"><img src="photo3.png"></div>
 </div>
 
-<!-- NEW Side-by-side Gallery -->
-<div class="gallery" style="display:flex;flex-direction:column;gap:40px;margin:40px 0;">
+<!-- NEW side-by-side gallery -->
+<div class="side-gallery" style="margin:80px 0 40px 0; display:flex;flex-direction:column;gap:50px; border-top:2px solid #ffc0cb; padding-top:40px;">
 
   <!-- Pic 1 -->
-  <div style="display:flex;align-items:center;gap:20px;">
-    <div style="flex:1;max-width:40%;">
-      <img src="pic1.png" style="width:100%;border-radius:15px;cursor:pointer;" onclick="openLightbox('pic1.png')">
+  <div class="side-pic" style="display:flex;align-items:center;gap:20px;flex-wrap:wrap;">
+    <div class="img-container" style="flex:1;max-width:40%; cursor:pointer;" onclick="openLightbox('pic1.png')">
+      <img src="pic1.png" style="width:100%;border-radius:15px;transition:0.4s;">
     </div>
-    <div style="flex:1;text-align:left;">
-      <p style="font-size:1.1rem;font-weight:500;">Your eyes are so beautiful, how am I not supposed to fall for it 😍</p>
+    <div style="flex:1; min-width:200px; text-align:left;">
+      <p style="font-size:1.1rem;font-weight:500;color:#b03045;">Your eyes are so beautiful, how am I not supposed to fall for it 😍</p>
     </div>
   </div>
 
   <!-- Pic 2 -->
-  <div style="display:flex;align-items:center;gap:20px;">
-    <div style="flex:1;max-width:40%;">
-      <img src="pic2.png" style="width:100%;border-radius:15px;cursor:pointer;" onclick="openLightbox('pic2.png')">
+  <div class="side-pic" style="display:flex;align-items:center;gap:20px;flex-wrap:wrap;">
+    <div class="img-container" style="flex:1;max-width:40%; cursor:pointer;" onclick="openLightbox('pic2.png')">
+      <img src="pic2.png" style="width:100%;border-radius:15px;transition:0.4s;">
     </div>
-    <div style="flex:1;text-align:left;">
-      <p style="font-size:1.1rem;font-weight:500;">One of the most beautiful pictures of you, can't stop falling for you more 💖</p>
+    <div style="flex:1; min-width:200px; text-align:left;">
+      <p style="font-size:1.1rem;font-weight:500;color:#b03045;">One of the most beautiful pictures of you, can't stop falling for you more 💖</p>
     </div>
   </div>
 
   <!-- Pic 3 -->
-  <div style="display:flex;align-items:center;gap:20px;">
-    <div style="flex:1;max-width:40%;">
-      <img src="pic3.png" style="width:100%;border-radius:15px;cursor:pointer;" onclick="openLightbox('pic3.png')">
+  <div class="side-pic" style="display:flex;align-items:center;gap:20px;flex-wrap:wrap;">
+    <div class="img-container" style="flex:1;max-width:40%; cursor:pointer;" onclick="openLightbox('pic3.png')">
+      <img src="pic3.png" style="width:100%;border-radius:15px;transition:0.4s;">
     </div>
-    <div style="flex:1;text-align:left;">
-      <p style="font-size:1.1rem;font-weight:500;">YESSS I LOVE YOU VERY MUCH ❤️🔥</p>
+    <div style="flex:1; min-width:200px; text-align:left;">
+      <p style="font-size:1.1rem;font-weight:500;color:#b03045;">YESSS I LOVE YOU VERY MUCH ❤️🔥</p>
     </div>
   </div>
 
