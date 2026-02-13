@@ -167,19 +167,30 @@ function closeLightbox(){document.getElementById("lightbox").style.display="none
 // Love button popup
 function showLove(){ alert("BOOMSHAKALAKA 💥❤️"); }
 
-// Tricky infinite slider
+// Infinite slider prank (stretches only after 100%)
 const slider = document.getElementById("loveSlider");
 const percentDisplay = document.getElementById("percentDisplay");
 const yesBtn = document.getElementById("yesBtn");
+let hasReached100 = false;
 let dragValue = 0;
 let sliderWidth = slider.offsetWidth;
 
 slider.addEventListener("input", () => {
-  dragValue += parseInt(slider.value)/10; // incremental increase
-  percentDisplay.innerText = Math.floor(dragValue) + "%";
-  sliderWidth *= 1.02; // stretch slider width
-  slider.style.width = sliderWidth + "px";
-  if(dragValue > 50){ yesBtn.style.display = "inline-block"; }
+  let val = parseInt(slider.value);
+  if(!hasReached100){
+    dragValue = val;
+    percentDisplay.innerText = dragValue + "%";
+    if(val >= 100){
+      hasReached100 = true;
+      yesBtn.style.display = "inline-block";
+    }
+  } else {
+    // After reaching 100%, slider stretches and % increases infinitely
+    dragValue += 1; // increase by 1% per input
+    percentDisplay.innerText = dragValue + "%";
+    sliderWidth *= 1.05; // grow 5% per input
+    slider.style.width = sliderWidth + "px";
+  }
 });
 
 // Start experience
