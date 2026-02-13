@@ -4,340 +4,274 @@
 <meta charset="UTF-8">
 <title>Summa ❤️</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
 
 <style>
-
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-  font-family:"Poppins",sans-serif;
-}
-
-body{
-  background:#fff0f3;
-  min-height:100vh;
-  text-align:center;
-  color:#b03045;
-  overflow-x:hidden;
-}
+*{margin:0;padding:0;box-sizing:border-box;font-family:"Poppins",sans-serif;}
+body{background:#fff0f3;min-height:100vh;overflow-x:hidden;text-align:center;color:#b03045;position:relative;}
 
 /* Overlay */
-#overlay{
-  position:fixed;
-  inset:0;
-  background:linear-gradient(135deg,#ff9db0,#fff0f3);
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  align-items:center;
-  z-index:9999;
-}
+#overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:linear-gradient(135deg,#ff9db0,#fff0f3);display:flex;justify-content:center;align-items:center;z-index:9999;flex-direction:column;}
+#overlay button{padding:20px 40px;font-size:24px;border:none;border-radius:25px;background:#ff6b81;color:white;cursor:pointer;box-shadow:0 10px 20px rgba(0,0,0,0.2);transition:0.3s;}
+#overlay button:hover{background:#ff4d6d;transform:scale(1.05);}
 
-#overlay button{
-  padding:20px 40px;
-  font-size:24px;
-  border:none;
-  border-radius:25px;
-  background:#ff6b81;
-  color:white;
-  cursor:pointer;
-  margin-top:20px;
-  transition:.3s;
-}
-
-#overlay button:hover{
-  background:#ff4d6d;
-  transform:scale(1.05);
-}
+/* Floating Hearts */
+.bg-heart{position:fixed;font-size:20px;opacity:0.2;animation:floatUp linear infinite;pointer-events:none;}
+@keyframes floatUp{from{transform:translateY(100vh);}to{transform:translateY(-120vh);}}
 
 /* Card */
-.card{
-  max-width:900px;
-  margin:50px auto;
-  background:white;
-  border-radius:25px;
-  padding:40px;
-  box-shadow:0 20px 40px rgba(0,0,0,.15);
-  display:none;
-  animation:fade 1.5s ease;
-}
-
-@keyframes fade{
-  from{opacity:0;transform:translateY(40px);}
-  to{opacity:1;transform:translateY(0);}
-}
+.card{max-width:900px;margin:50px auto;background:white;border-radius:25px;padding:40px;box-shadow:0 20px 40px rgba(0,0,0,0.15);animation:fadeIn 2s ease;position:relative;overflow:hidden;display:none;}
 
 /* Titles */
+h1{font-size:3rem;margin-bottom:10px;animation:float 3s infinite;text-shadow:0 0 10px #ff9db0;}
+h2{font-weight:400;margin-bottom:30px;}
+.message{font-size:1.1rem;line-height:1.8;margin:30px 0;animation:slideUp 2s ease;}
 
-h1{
-  font-size:3rem;
-  text-shadow:0 0 10px pink;
-}
+/* Featured / Gallery */
+.featured{width:100%;height:230px;margin:30px 0;border-radius:18px;overflow:hidden;box-shadow:0 12px 25px rgba(0,0,0,0.15);cursor:pointer;}
+.featured img{width:100%;height:100%;object-fit:cover;transition:0.4s;}
+.featured:hover img{transform:scale(1.08);}
+.gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin:40px 0;}
+.pic{height:200px;border-radius:15px;overflow:hidden;box-shadow:0 10px 20px rgba(0,0,0,0.15);transition:0.4s;cursor:pointer;display:flex;flex-direction:column;align-items:center;}
+.pic img{width:100%;height:100%;object-fit:cover;}
+.pic:hover{transform:scale(1.08);}
+.pic p{margin-top:10px;font-weight:500;text-align:center;color:#b03045;}
 
 /* Button */
+.btn{background:#ff6b81;color:white;border:none;padding:12px 30px;border-radius:30px;font-size:18px;cursor:pointer;transition:0.3s;}
+.btn:hover{background:#ff4d6d;transform:scale(1.08);}
 
-.btn{
-  background:#ff6b81;
-  color:white;
-  border:none;
-  padding:12px 30px;
-  border-radius:30px;
-  font-size:18px;
-  cursor:pointer;
-  transition:.3s;
+/* Lightbox */
+.lightbox{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.8);display:none;justify-content:center;align-items:center;z-index:1000;}
+.lightbox img{max-width:90%;max-height:90%;border-radius:20px;}
+
+/* Animations */
+@keyframes fadeIn{from{opacity:0;transform:translateY(40px);}to{opacity:1;transform:translateY(0);} }
+@keyframes slideUp{from{opacity:0;transform:translateY(50px);}to{opacity:1;transform:translateY(0);} }
+@keyframes float{0%{transform:translateY(0);}50%{transform:translateY(-8px);}100%{transform:translateY(0);} }
+.heart{position:fixed;font-size:18px;color:#ff4d6d;animation:heartMove 1.5s linear forwards;pointer-events:none;}
+@keyframes heartMove{from{opacity:1;}to{opacity:0;transform:translateY(-80px) scale(0.3);}}
+
+/* Lyrics */
+.lyric{position:fixed;font-size:32px;font-family:'Dancing Script', cursive;color:#b03045;font-weight:700;opacity:0;transition:opacity 0.3s;pointer-events:none;max-width:28%;white-space:pre-wrap;word-wrap:break-word;text-shadow:2px 2px 8px #ffc0cb;}
+.lyric.left{left:10%;top:50%;transform:translateY(-50%);}
+.lyric.right{right:10%;top:50%;transform:translateY(-50%);}
+
+/* Side gallery hover effect */
+.side-gallery .img-container img:hover{
+  transform: scale(1.08);
+  box-shadow:0 12px 25px rgba(0,0,0,0.15);
+  transition:0.4s;
 }
 
-.btn:hover{
-  background:#ff4d6d;
-  transform:scale(1.08);
-}
-
-/* Floating hearts */
-
-.bg-heart{
-  position:fixed;
-  font-size:20px;
-  opacity:.2;
-  animation:floatUp linear infinite;
-  pointer-events:none;
-}
-
-@keyframes floatUp{
-  from{transform:translateY(100vh);}
-  to{transform:translateY(-120vh);}
-}
-
-/* Cursor hearts */
-
-.heart{
-  position:fixed;
-  font-size:18px;
-  color:#ff4d6d;
-  animation:heartMove 1.5s linear forwards;
-  pointer-events:none;
-}
-
-@keyframes heartMove{
-  to{
-    opacity:0;
-    transform:translateY(-80px) scale(.3);
+/* Responsive for side gallery */
+@media (max-width:768px){
+  .side-gallery .side-pic{
+    flex-direction:column;
+    align-items:flex-start;
+  }
+  .side-gallery .img-container{
+    max-width:100%;
+  }
+  .side-gallery .side-pic div:last-child{
+    margin-top:15px;
   }
 }
-
-/* CENTER LYRICS */
-
-.lyric{
-  position:fixed;
-  left:50%;
-  top:50%;
-  transform:translate(-50%,-50%);
-
-  font-family:'Playfair Display', serif;
-  font-size:48px;
-  text-align:center;
-  max-width:85%;
-
-  background:rgba(255,255,255,0.8);
-  padding:35px 45px;
-  border-radius:25px;
-
-  box-shadow:0 0 30px rgba(255,120,150,.6);
-
-  backdrop-filter:blur(8px);
-
-  opacity:0;
-  pointer-events:none;
-
-  transition:opacity 1s ease;
-}
-
-.lyric.show{
-  opacity:1;
-}
-
 </style>
 </head>
 
 <body>
 
 <!-- Overlay -->
-
 <div id="overlay">
   <h1>💖 Welcome 💖</h1>
-  <button onclick="start()">Open ❤️</button>
+  <button onclick="startExperience()">Wanna open? ❤️</button>
 </div>
 
 <!-- Music -->
-
 <audio id="music" loop>
   <source src="music.mp3" type="audio/mpeg">
 </audio>
 
-<!-- Main -->
-
 <div class="card">
-
 <h1>💖 Happy Valentine’s Day 💖</h1>
 <h2>Summa 💕</h2>
-
-<p>You are everything to me ❤️</p>
-<p>I love you so much.</p>
-
-<p style="font-weight:600;margin:20px 0;">
+<div class="message">
+<p>
+Summa, you’re such an amazing person. I love you and you’re everything in my life.
+I don’t know how to thank you enough for how much you’ve done for me.
+</p>
+<br>
+<p>
+I’m so grateful to have you in 2026.
+I hope we’ll be together this whole year and share so many memories.
+</p>
+<br>
+<p>
+I really, really, really love you.
+I love your vibes and everything about you.
+</p>
+<br>
+<p style="font-weight:600;">
 YOU ARE MY E-VALENTINE ❤️
 </p>
+<p style="margin-top:20px;">— Your Winta 💘</p>
+</div>
 
-<p>— Your Winta 💘</p>
+<div class="featured" onclick="openLightbox('photo4.png')">
+  <img src="photo4.png">
+</div>
 
-<button class="btn" onclick="boom()">Click Me 😘</button>
+<!-- Original top gallery -->
+<div class="gallery">
+  <div class="pic" onclick="openLightbox('photo1.png')"><img src="photo1.png"></div>
+  <div class="pic" onclick="openLightbox('photo2.png')"><img src="photo2.png"></div>
+  <div class="pic" onclick="openLightbox('photo3.png')"><img src="photo3.png"></div>
+</div>
+
+<!-- NEW side-by-side gallery -->
+<div class="side-gallery" style="margin:80px 0 40px 0; display:flex;flex-direction:column;gap:50px; border-top:2px solid #ffc0cb; padding-top:40px;">
+
+  <!-- Pic 1 -->
+  <div class="side-pic" style="display:flex;align-items:center;gap:20px;flex-wrap:wrap;">
+    <div class="img-container" style="flex:1;max-width:40%; cursor:pointer;" onclick="openLightbox('pic1.png')">
+      <img src="pic1.png" style="width:100%;border-radius:15px;transition:0.4s;">
+    </div>
+    <div style="flex:1; min-width:200px; text-align:left;">
+      <p style="font-size:1.1rem;font-weight:500;color:#b03045;">Your eyes are so beautiful, how am I not supposed to fall for it 😍</p>
+    </div>
+  </div>
+
+  <!-- Pic 2 -->
+  <div class="side-pic" style="display:flex;align-items:center;gap:20px;flex-wrap:wrap;">
+    <div class="img-container" style="flex:1;max-width:40%; cursor:pointer;" onclick="openLightbox('pic2.png')">
+      <img src="pic2.png" style="width:100%;border-radius:15px;transition:0.4s;">
+    </div>
+    <div style="flex:1; min-width:200px; text-align:left;">
+      <p style="font-size:1.1rem;font-weight:500;color:#b03045;">One of the most beautiful pictures of you, can't stop falling for you more 💖</p>
+    </div>
+  </div>
+
+  <!-- Pic 3 -->
+  <div class="side-pic" style="display:flex;align-items:center;gap:20px;flex-wrap:wrap;">
+    <div class="img-container" style="flex:1;max-width:40%; cursor:pointer;" onclick="openLightbox('pic3.png')">
+      <img src="pic3.png" style="width:100%;border-radius:15px;transition:0.4s;">
+    </div>
+    <div style="flex:1; min-width:200px; text-align:left;">
+      <p style="font-size:1.1rem;font-weight:500;color:#b03045;">YESSS I LOVE YOU VERY MUCH ❤️🔥</p>
+    </div>
+  </div>
 
 </div>
 
-<!-- Lyrics -->
+<button class="btn" onclick="showLove()">Click Me 😘</button>
+</div>
 
-<div class="lyric" id="lyricBox"></div>
+<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+  <img id="lightboxImg">
+</div>
+
+<!-- Lyrics -->
+<div class="lyric left" id="lyric-left"></div>
+<div class="lyric right" id="lyric-right"></div>
 
 <script>
+let music = document.getElementById("music");
+let playing = false;
 
-const music = document.getElementById("music");
-const lyricBox = document.getElementById("lyricBox");
-
-let playing=false;
-let index=-1;
-
-/* Lyrics timing */
-
+/* Lyrics data: [start,end,text] with line breaks where needed */
 const lyrics = [
-
-  [1,3,"I don't wanna get lost"],
-  [3.5,6,"inside the color"],
-  [6.3,9,"under my tongue"],
-
-  [10.7,14.9,"Cause I don't wanna\nbe in love with another"],
-
-  [15,20,"EVEN IN\nANOTHER LIFEE ❤️✨"],
-
-  [20.5,24.9,"Can someone tell me\nit's alright to be covered"],
-  [25,29,"Underneath the covers?\nBut I"],
-  [29.1,33.5,"No, I don't need to\nsleep anymore"]
-
+  [1.0, 3.0, "I don't wanna get lost"],
+  [3.5, 6.0, "inside the color"],
+  [6.3, 9.0, "under my tongue"],
+  [10.7, 14.9, "Cause I don't wanna\nbe in love with another"],
+  [15.0, 20.0, "even in another life"],
+  [20.5, 24.9, "Can someone tell me\nit's alright to be covered"],
+  [25.0, 29.0, "Underneath the covers?\nBut I"],
+  [29.1, 33.5, "No, I don't need to\nsleep anymore"]
 ];
 
-/* Sync */
+let lyricIndex = 0;
 
-function sync(){
+/* Floating Background Hearts */
+setInterval(()=>{
+  let h=document.createElement("div");
+  h.className="bg-heart";
+  h.innerHTML="❤️";
+  h.style.left=Math.random()*100+"vw";
+  h.style.animationDuration=5+Math.random()*5+"s";
+  document.body.appendChild(h);
+  setTimeout(()=>h.remove(),10000);
+},600);
 
-  const t = music.currentTime;
+/* Cursor Hearts */
+let lastHeart=0;
+document.addEventListener("mousemove",e=>{
+  let now=Date.now();
+  if(now-lastHeart<150) return;
+  lastHeart=now;
+  let h=document.createElement("div");
+  h.className="heart";
+  h.innerHTML="❤️";
+  h.style.left=e.clientX+"px";
+  h.style.top=e.clientY+"px";
+  document.body.appendChild(h);
+  setTimeout(()=>h.remove(),1500);
+});
 
-  let active=false;
-
-  lyrics.forEach((l,i)=>{
-
-    if(t>=l[0] && t<=l[1]){
-
-      active=true;
-
-      if(i!==index){
-
-        index=i;
-
-        lyricBox.classList.remove("show");
-
-        setTimeout(()=>{
-
-          lyricBox.innerText=l[2];
-          lyricBox.classList.add("show");
-
-        },200);
-      }
-    }
-
-  });
-
-  if(!active){
-    lyricBox.classList.remove("show");
-  }
-
-  requestAnimationFrame(sync);
+/* Lightbox */
+function openLightbox(src){
+  document.getElementById("lightboxImg").src=src;
+  document.getElementById("lightbox").style.display="flex";
 }
+function closeLightbox(){document.getElementById("lightbox").style.display="none";}
 
-/* Start */
+/* Button popup */
+function showLove(){ alert("BOOMSHAKALAKA 💥❤️"); }
 
-function start(){
-
+/* Overlay click to start everything */
+function startExperience(){
   document.getElementById("overlay").style.display="none";
   document.querySelector(".card").style.display="block";
-
   if(!playing){
-    music.play().catch(()=>{});
+    music.play().catch(e=>{});
     playing=true;
   }
 }
 
-/* Button */
+/* Lyrics sync */
+const leftEl = document.getElementById("lyric-left");
+const rightEl = document.getElementById("lyric-right");
 
-function boom(){
-  alert("BOOMSHAKALAKA 💥❤️");
+function updateLyrics(){
+  const currentTime = music.currentTime;
+  let found = false;
+  lyrics.forEach((line,i)=>{
+    if(currentTime>=line[0] && currentTime<=line[1]){
+      if(i!==lyricIndex){
+        lyricIndex = i;
+        const el = i%2===0 ? leftEl : rightEl;
+        const other = i%2===0 ? rightEl : leftEl;
+        el.innerText = line[2];
+        el.style.opacity = 1;
+        other.style.opacity = 0;
+      }
+      found = true;
+    }
+  });
+  if(!found){ leftEl.style.opacity=0; rightEl.style.opacity=0; }
+  requestAnimationFrame(updateLyrics);
 }
 
-/* Floating hearts */
-
-setInterval(()=>{
-
-  const h=document.createElement("div");
-  h.className="bg-heart";
-  h.innerHTML="❤️";
-
-  h.style.left=Math.random()*100+"vw";
-  h.style.animationDuration=5+Math.random()*5+"s";
-
-  document.body.appendChild(h);
-
-  setTimeout(()=>h.remove(),10000);
-
-},600);
-
-/* Cursor hearts */
-
-let last=0;
-
-document.addEventListener("mousemove",e=>{
-
-  const now=Date.now();
-
-  if(now-last<150) return;
-
-  last=now;
-
-  const h=document.createElement("div");
-
-  h.className="heart";
-  h.innerHTML="❤️";
-
-  h.style.left=e.clientX+"px";
-  h.style.top=e.clientY+"px";
-
-  document.body.appendChild(h);
-
-  setTimeout(()=>h.remove(),1500);
-
-});
-
-/* Loop */
-
-music.addEventListener("ended",()=>{
-
+/* Loop music and lyrics */
+music.addEventListener('ended',()=>{
   music.currentTime=0;
-  index=-1;
-  music.play();
-
+  lyricIndex=0;
+  music.play().catch(e=>{});
 });
 
-requestAnimationFrame(sync);
+requestAnimationFrame(updateLyrics);
 
 </script>
-
 </body>
 </html>
