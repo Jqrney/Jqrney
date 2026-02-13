@@ -2,11 +2,13 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Summa ❤️</title>
+<title>Summa ❤️ Premium</title>
+
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:"Poppins",sans-serif;}
-body{background:#fff0f3;min-height:100vh;overflow-x:hidden;text-align:center;color:#b03045;position:relative;}
+body{background:#fff0f3;min-height:100vh;overflow-x:hidden;text-align:center;color:#b03045;position:relative;scroll-behavior:smooth;}
 
 /* Overlay */
 #overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:linear-gradient(135deg,#ff9db0,#fff0f3);display:flex;justify-content:center;align-items:center;z-index:9999;flex-direction:column;}
@@ -18,34 +20,38 @@ body{background:#fff0f3;min-height:100vh;overflow-x:hidden;text-align:center;col
 @keyframes floatUp{from{transform:translateY(100vh);}to{transform:translateY(-120vh);}}
 
 /* Card */
-.card{max-width:900px;margin:50px auto;background:white;border-radius:25px;padding:40px;box-shadow:0 20px 40px rgba(0,0,0,0.15);animation:fadeIn 2s ease;position:relative;overflow:hidden;display:none;}
+.card{max-width:900px;margin:50px auto;background:white;border-radius:25px;padding:40px;box-shadow:0 20px 60px rgba(0,0,0,0.2);position:relative;overflow:hidden;opacity:0;transform:translateY(40px);transition:1s ease;}
+
+/* Scroll Animation */
+.card.show{opacity:1;transform:translateY(0);}
+.featured.show,.pic.show{opacity:1;transform:translateY(0);}
 
 /* Titles */
-h1{font-size:3rem;margin-bottom:10px;animation:float 3s infinite;text-shadow:0 0 10px #ff9db0;}
+h1{font-size:3rem;margin-bottom:10px;animation:float 3s infinite;text-shadow:0 0 15px #ff9db0;}
 h2{font-weight:400;margin-bottom:30px;}
-.message{font-size:1.1rem;line-height:1.8;margin:30px 0;animation:slideUp 2s ease;}
+.message{font-size:1.1rem;line-height:1.8;margin:30px 0;}
 
 /* Featured / Gallery */
-.featured{width:100%;height:230px;margin:30px 0;border-radius:18px;overflow:hidden;box-shadow:0 12px 25px rgba(0,0,0,0.15);cursor:pointer;}
-.featured img{width:100%;height:100%;object-fit:cover;transition:0.4s;}
-.featured:hover img{transform:scale(1.08);}
-.gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin:40px 0;}
-.pic{height:200px;border-radius:15px;overflow:hidden;box-shadow:0 10px 20px rgba(0,0,0,0.15);transition:0.4s;cursor:pointer;}
-.pic img{width:100%;height:100%;object-fit:cover;}
-.pic:hover{transform:scale(1.08);}
+.featured{width:100%;height:400px;margin:50px 0;border-radius:25px;overflow:hidden;box-shadow:0 20px 50px rgba(0,0,0,0.2);cursor:pointer;opacity:0;transform:translateY(40px);transition:1s ease;}
+.featured img{width:100%;height:100%;object-fit:cover;transition:0.6s;}
+.featured:hover img{transform:scale(1.1);}
+.gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:25px;margin:40px 0;}
+.pic{height:250px;border-radius:20px;overflow:hidden;box-shadow:0 15px 35px rgba(0,0,0,0.2);transition:0.5s;cursor:pointer;opacity:0;transform:translateY(40px);}
+.pic img{width:100%;height:100%;object-fit:cover;transition:0.5s;}
+.pic:hover{transform:scale(1.05) rotate(-1deg);}
 
 /* Button */
-.btn{background:#ff6b81;color:white;border:none;padding:12px 30px;border-radius:30px;font-size:18px;cursor:pointer;transition:0.3s;}
+.btn{background:#ff6b81;color:white;border:none;padding:14px 35px;border-radius:30px;font-size:18px;cursor:pointer;transition:0.3s;box-shadow:0 8px 20px rgba(0,0,0,0.2);}
 .btn:hover{background:#ff4d6d;transform:scale(1.08);}
 
 /* Lightbox */
-.lightbox{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.8);display:none;justify-content:center;align-items:center;z-index:1000;}
-.lightbox img{max-width:90%;max-height:90%;border-radius:20px;}
+.lightbox{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.85);display:none;justify-content:center;align-items:center;z-index:1000;}
+.lightbox img{max-width:90%;max-height:90%;border-radius:25px;box-shadow:0 20px 60px rgba(0,0,0,0.3);}
 
 /* Animations */
-@keyframes fadeIn{from{opacity:0;transform:translateY(40px);}to{opacity:1;transform:translateY(0);}}
-@keyframes slideUp{from{opacity:0;transform:translateY(50px);}to{opacity:1;transform:translateY(0);}}
 @keyframes float{0%{transform:translateY(0);}50%{transform:translateY(-8px);}100%{transform:translateY(0);}}
+
+/* Cursor Hearts */
 .heart{position:fixed;font-size:18px;color:#ff4d6d;animation:heartMove 1.5s linear forwards;pointer-events:none;}
 @keyframes heartMove{from{opacity:1;}to{opacity:0;transform:translateY(-80px) scale(0.3);}}
 
@@ -54,214 +60,168 @@ h2{font-weight:400;margin-bottom:30px;}
 .lyric.left{left:10%;top:50%;transform:translateY(-50%);}
 .lyric.right{right:10%;top:50%;transform:translateY(-50%);}
 
-/* Flower bloom */
-.flower{
-  position:absolute;
-  width:50px;
-  height:50px;
-  background:url('https://i.ibb.co/fNwx2mX/rose.png') no-repeat center/contain;
-  opacity:0;
-  transform:scale(0);
-  transition:all 1s ease-out;
-  pointer-events:none;
-}
 </style>
 </head>
+
 <body>
 
 <!-- Overlay -->
 <div id="overlay">
-   <h1>💖 Welcome 💖</h1>
-   <button onclick="startExperience()">Wanna open? ❤️</button>
+  <h1>💖 Welcome 💖</h1>
+  <button onclick="startExperience()">Wanna open? ❤️</button>
 </div>
 
 <!-- Music -->
 <audio id="music" loop>
-   <source src="music.mp3" type="audio/mpeg">
+  <source src="music.mp3" type="audio/mpeg">
 </audio>
 
 <div class="card">
-  <h1>💖 Happy Valentine’s Day 💖</h1>
-  <h2>Summa 💕</h2>
-  <div class="message">
-    <p>Summa, you’re such an amazing person. I love you and you’re everything in my life. I don’t know how to thank you enough for how much you’ve done for me.</p>
-    <br>
-    <p>I’m so grateful to have you in 2026. I hope we’ll be together this whole year and share so many memories.</p>
-    <br>
-    <p>I really, really, really love you. I love your vibes and everything about you.</p>
-    <br>
-    <p style="font-weight:600;">YOU ARE MY E-VALENTINE ❤️</p>
-    <p style="margin-top:20px;">— Your Winta 💘</p>
-  </div>
-  <div class="featured" onclick="openLightbox('photo4.png')">
-    <img src="photo4.png">
-  </div>
-  <div class="gallery">
-    <div class="pic" onclick="openLightbox('photo1.png')"><img src="photo1.png"></div>
-    <div class="pic" onclick="openLightbox('photo2.png')"><img src="photo2.png"></div>
-    <div class="pic" onclick="openLightbox('photo3.png')"><img src="photo3.png"></div>
-  </div>
-  <button class="btn" onclick="showLove()">Click Me 😘</button>
+<h1>💖 Happy Valentine’s Day 💖</h1>
+<h2>Summa 💕</h2>
+<div class="message">
+<p>
+Summa, you’re such an amazing person. I love you and you’re everything in my life.
+</p>
+<p>
+I’m so grateful to have you in 2026.
+I hope we’ll be together this whole year and share so many memories.
+</p>
+<p>
+I really, really, really love you.
+I love your vibes and everything about you.
+</p>
+<p style="font-weight:600;">
+YOU ARE MY E-VALENTINE ❤️
+</p>
+<p style="margin-top:20px;">— Your Winta 💘</p>
+</div>
+
+<div class="featured" onclick="openLightbox('photo4.png')">
+  <img src="photo4.png">
+</div>
+
+<div class="gallery">
+  <div class="pic" onclick="openLightbox('photo1.png')"><img src="photo1.png"></div>
+  <div class="pic" onclick="openLightbox('photo2.png')"><img src="photo2.png"></div>
+  <div class="pic" onclick="openLightbox('photo3.png')"><img src="photo3.png"></div>
+</div>
+
+<button class="btn" onclick="showLove()">Click Me 😘</button>
 </div>
 
 <div class="lightbox" id="lightbox" onclick="closeLightbox()">
-   <img id="lightboxImg">
+  <img id="lightboxImg">
 </div>
-
-<!-- Flowers for scroll trigger -->
-<div id="flowersContainer"></div>
 
 <!-- Lyrics -->
 <div class="lyric left" id="lyric-left"></div>
 <div class="lyric right" id="lyric-right"></div>
 
 <script>
-// Music
 let music = document.getElementById("music");
 let playing = false;
 
-// Overlay start
+/* Floating Background Hearts */
+setInterval(()=>{
+  let h=document.createElement("div");
+  h.className="bg-heart";
+  h.innerHTML="❤️";
+  h.style.left=Math.random()*100+"vw";
+  h.style.animationDuration=5+Math.random()*5+"s";
+  document.body.appendChild(h);
+  setTimeout(()=>h.remove(),10000);
+},600);
+
+/* Cursor Hearts */
+let lastHeart=0;
+document.addEventListener("mousemove",e=>{
+  let now=Date.now();
+  if(now-lastHeart<150) return;
+  lastHeart=now;
+  let h=document.createElement("div");
+  h.className="heart";
+  h.innerHTML="❤️";
+  h.style.left=e.clientX+"px";
+  h.style.top=e.clientY+"px";
+  document.body.appendChild(h);
+  setTimeout(()=>h.remove(),1500);
+});
+
+/* Lightbox */
+function openLightbox(src){
+  document.getElementById("lightboxImg").src=src;
+  document.getElementById("lightbox").style.display="flex";
+}
+function closeLightbox(){document.getElementById("lightbox").style.display="none";}
+
+/* Button popup */
+function showLove(){ alert("BOOMSHAKALAKA 💥❤️"); }
+
+/* Overlay click to start everything */
 function startExperience(){
   document.getElementById("overlay").style.display="none";
   document.querySelector(".card").style.display="block";
-  if(!playing){ music.play().catch(e=>{}); playing=true; }
+  if(!playing){
+    music.play().catch(e=>{});
+    playing=true;
+  }
 }
 
-// Floating hearts
-setInterval(()=>{
-   let h=document.createElement("div");
-   h.className="bg-heart";
-   h.innerHTML="❤️";
-   h.style.left=Math.random()*100+"vw";
-   h.style.animationDuration=5+Math.random()*5+"s";
-   document.body.appendChild(h);
-   setTimeout(()=>h.remove(),10000);
-},600);
+/* Scroll-triggered animation */
+const scrollElements = document.querySelectorAll(".card, .featured, .pic");
+const observer = new IntersectionObserver(entries=>{
+  entries.forEach(entry=>{
+    if(entry.isIntersecting){
+      entry.target.classList.add("show");
+    }
+  });
+},{threshold:0.2});
+scrollElements.forEach(el=>observer.observe(el));
 
-let lastHeart=0;
-document.addEventListener("mousemove",e=>{
-   let now=Date.now();
-   if(now-lastHeart<150) return;
-   lastHeart=now;
-   let h=document.createElement("div");
-   h.className="heart";
-   h.innerHTML="❤️";
-   h.style.left=e.clientX+"px";
-   h.style.top=e.clientY+"px";
-   document.body.appendChild(h);
-   setTimeout(()=>h.remove(),1500);
-});
-
-// Lightbox
-function openLightbox(src){ document.getElementById("lightboxImg").src=src; document.getElementById("lightbox").style.display="flex"; }
-function closeLightbox(){document.getElementById("lightbox").style.display="none";}
-
-// Love button popup
-function showLove(){ alert("BOOMSHAKALAKA 💥❤️"); }
-
-// Infinite slider prank
-const slider = document.createElement("input");
-slider.type="range";
-slider.id="loveSlider";
-slider.min=0;
-slider.max=100;
-slider.value=0;
-const percentDisplay = document.createElement("div");
-percentDisplay.id="percentDisplay";
-percentDisplay.innerText="0%";
-const sliderContainer = document.createElement("div");
-sliderContainer.id="sliderContainer";
-sliderContainer.appendChild(slider);
-sliderContainer.appendChild(percentDisplay);
-document.getElementById("overlay").appendChild(sliderContainer);
-
-const yesBtn = document.createElement("button");
-yesBtn.id="yesBtn";
-yesBtn.innerText="Yes 😘";
-yesBtn.onclick = startExperience;
-document.getElementById("overlay").appendChild(yesBtn);
-
-let hasReached100 = false;
-let dragValue = 0;
-let sliderWidth = slider.offsetWidth;
-
-slider.addEventListener("input", () => {
-   let val = parseInt(slider.value);
-   if(!hasReached100){
-      dragValue = val;
-      percentDisplay.innerText = dragValue + "%";
-      if(val>=100){ hasReached100=true; yesBtn.style.display="inline-block"; }
-   } else {
-      dragValue += 1;
-      percentDisplay.innerText = dragValue + "%";
-      sliderWidth *= 1.05;
-      slider.style.width = sliderWidth + "px";
-   }
-});
-
-// Lyrics
+/* Lyrics sync */
 const lyrics = [
-  [1.0,3.0,"I don't wanna get lost"],
-  [3.5,6.0,"inside the color"],
-  [6.3,9.0,"under my tongue"],
-  [10.7,14.9,"Cause I don't wanna\nbe in love with another"],
-  [15.0,20.0,"even in another life"],
-  [20.5,24.9,"Can someone tell me\nit's alright to be covered"],
-  [25.0,29.0,"Underneath the covers?\nBut I"],
-  [29.1,33.5,"No, I don't need to\nsleep anymore"]
+  [1.0, 3.0, "I don't wanna get lost"],
+  [3.5, 6.0, "inside the color"],
+  [6.3, 9.0, "under my tongue"],
+  [10.7, 14.9, "Cause I don't wanna\nbe in love with another"],
+  [15.0, 20.0, "even in another life"],
+  [20.5, 24.9, "Can someone tell me\nit's alright to be covered"],
+  [25.0, 29.0, "Underneath the covers?\nBut I"],
+  [29.1, 33.5, "No, I don't need to\nsleep anymore"]
 ];
-let lyricIndex = 0;
+
+let lyricIndex=0;
 const leftEl = document.getElementById("lyric-left");
 const rightEl = document.getElementById("lyric-right");
+
 function updateLyrics(){
-   const currentTime = music.currentTime;
-   let found=false;
-   lyrics.forEach((line,i)=>{
-      if(currentTime>=line[0] && currentTime<=line[1]){
-         if(i!==lyricIndex){
-            lyricIndex=i;
-            const el=i%2===0?leftEl:rightEl;
-            const other=i%2===0?rightEl:leftEl;
-            el.innerText=line[2];
-            el.style.opacity=1;
-            other.style.opacity=0;
-         }
-         found=true;
+  const currentTime = music.currentTime;
+  let found = false;
+  lyrics.forEach((line,i)=>{
+    if(currentTime>=line[0] && currentTime<=line[1]){
+      if(i!==lyricIndex){
+        lyricIndex=i;
+        const el = i%2===0 ? leftEl : rightEl;
+        const other = i%2===0 ? rightEl : leftEl;
+        el.innerText = line[2];
+        el.style.opacity=1;
+        other.style.opacity=0;
       }
-   });
-   if(!found){ leftEl.style.opacity=0; rightEl.style.opacity=0; }
-   requestAnimationFrame(updateLyrics);
+      found=true;
+    }
+  });
+  if(!found){ leftEl.style.opacity=0; rightEl.style.opacity=0; }
+  requestAnimationFrame(updateLyrics);
 }
+
 music.addEventListener('ended',()=>{
-   music.currentTime=0;
-   lyricIndex=0;
-   music.play().catch(e=>{});
+  music.currentTime=0;
+  lyricIndex=0;
+  music.play().catch(e=>{});
 });
+
 requestAnimationFrame(updateLyrics);
-
-// Scroll-trigger flowers
-const flowersContainer = document.getElementById("flowersContainer");
-const totalFlowers = 15;
-let flowers=[];
-for(let i=0;i<totalFlowers;i++){
-   const f = document.createElement("div");
-   f.className="flower";
-   f.style.left=Math.random()*80+"%";
-   f.style.top=200+i*150+"px";
-   flowersContainer.appendChild(f);
-   flowers.push(f);
-}
-
-window.addEventListener("scroll",()=>{
-   const scrollY = window.scrollY + window.innerHeight;
-   flowers.forEach((f,i)=>{
-      const flowerPos = parseInt(f.style.top);
-      if(scrollY > flowerPos){
-         f.style.opacity=1;
-         f.style.transform="scale(1)";
-      }
-   });
-});
 </script>
 </body>
 </html>
